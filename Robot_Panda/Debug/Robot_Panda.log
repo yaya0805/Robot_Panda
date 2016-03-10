@@ -1,27 +1,71 @@
-﻿已經開始建置於 2016/3/10 上午 01:26:08。
-     1>節點 2 (build 目標) 上的專案 "C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Robot_Panda\Robot_Panda.vcxproj"。
+﻿已經開始建置於 10/3/2016 21:37:13。
+     1>節點 2 (build 目標) 上的專案 "C:\Users\Scoly\Desktop\Robot\Robot_Panda\Robot_Panda\Robot_Panda.vcxproj"。
      1>InitializeBuildStatus:
-         正在變更時間戳記 "Debug\Robot_Panda.unsuccessfulbuild"。
+         由於指定了 "AlwaysCreate"，因此正在建立 "Debug\Robot_Panda.unsuccessfulbuild"。
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt RobotPanda.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt RobotPanda.cpp
          RobotPanda.cpp
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(33): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(33): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(39): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(52): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(52): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(53): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(57): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(57): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(59): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(73): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(73): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(74): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(86): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(86): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(93): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(107): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(108): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(116): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(121): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(126): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(126): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(128): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(128): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(133): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(133): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(136): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(136): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(141): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(141): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(143): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(143): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(145): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(180): warning C4244: '引數' : 將 'int' 轉換為 'GLfloat'，由於型別不同，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(199): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(199): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(199): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(200): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(200): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(200): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(218): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(218): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(218): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(219): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(219): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
+     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(219): warning C4305: '正在初始化' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
        ManifestResourceCompile:
          所有輸出都是最新的。
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Debug\Robot_Panda.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Scoly\Desktop\GPA-01-Robot\glew" /LIBPATH:"C:\Users\Scoly\Desktop\GPA-01-Robot\freeglut" freeglut.lib opengl32.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Robot_Panda.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Debug\Robot_Panda.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Debug\Robot_Panda.lib" /MACHINE:X86 Debug\Robot_Panda.exe.embed.manifest.res
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Scoly\Desktop\Robot\Robot_Panda\Debug\Robot_Panda.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\glew /LIBPATH:..\..\freeglut freeglut.lib opengl32.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Robot_Panda.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Scoly\Desktop\Robot\Robot_Panda\Debug\Robot_Panda.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Scoly\Desktop\Robot\Robot_Panda\Debug\Robot_Panda.lib" /MACHINE:X86 Debug\Robot_Panda.exe.embed.manifest.res
          Debug\RobotPanda.obj
        Manifest:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\Robot_Panda.exe.embed.manifest" /manifest Debug\Robot_Panda.exe.intermediate.manifest
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\Robot_Panda.exe.embed.manifest.res" Debug\Robot_Panda_manifest.rc 
+         所有輸出都是最新的。
        LinkEmbedManifest:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Debug\Robot_Panda.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Scoly\Desktop\GPA-01-Robot\glew" /LIBPATH:"C:\Users\Scoly\Desktop\GPA-01-Robot\freeglut" freeglut.lib opengl32.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Robot_Panda.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Debug\Robot_Panda.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Debug\Robot_Panda.lib" /MACHINE:X86 Debug\Robot_Panda.exe.embed.manifest.res
-         Debug\RobotPanda.obj
-         Robot_Panda.vcxproj -> C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Debug\Robot_Panda.exe
+         所有輸出都是最新的。
+         Robot_Panda.vcxproj -> C:\Users\Scoly\Desktop\Robot\Robot_Panda\Debug\Robot_Panda.exe
        FinalizeBuildStatus:
          正在刪除檔案 "Debug\Robot_Panda.unsuccessfulbuild"。
          正在變更時間戳記 "Debug\Robot_Panda.lastbuildstate"。
-     1>專案 "C:\Users\Scoly\Desktop\GPA-01-Robot\Robot_Panda\Robot_Panda\Robot_Panda.vcxproj" (build 目標) 建置完成。
+     1>專案 "C:\Users\Scoly\Desktop\Robot\Robot_Panda\Robot_Panda\Robot_Panda.vcxproj" (build 目標) 建置完成。
 
 建置成功。
 
-經過時間 00:00:00.76
+經過時間 00:00:01.34

@@ -11,7 +11,8 @@ const GLfloat tri_v1[3] = {-0.5f, -0.4f, 0.0f};
 const GLfloat tri_v2[3] = { 0.5f, -0.4f, 0.0f};
 const GLfloat tri_v3[3] = { 0.0f,  0.6f, 0.0f};
 
-GLubyte timer_cnt = 0;
+GLUquadricObj *quadratic;
+int timer_cnt = 0;
 bool timer_enabled = true;
 unsigned int timer_speed = 16;
 
@@ -24,12 +25,147 @@ void dumpInfo(void)
     printf("GLSL: %s\n", glGetString (GL_SHADING_LANGUAGE_VERSION));
 }
 
+
+void Panda_Torso()
+{
+
+	glColor3ub(255,255,255);
+	glScalef(1.0,1.1,0.9);
+
+	glutSolidSphere(0.2,50,50);
+	glColor3f(0,0,0);
+	GLUquadric* neck;
+	neck=gluNewQuadric();
+	glTranslatef(0,0.2,0);
+	glRotatef(90,1,0,0);
+	gluCylinder(neck, 0.14, 0.18, 0.1, 30, 30);
+	/*glColor3ub(0,0,0);
+	glTranslatef(0.4,0,0);
+	glRotatef(90,1,0,0);
+	glutSolidCone(0.1,0.1,50,50);*/
+
+}
+void Panda_Head()
+{
+
+	glColor3ub(255,255,255);
+	glScalef(1.1,1,0.9);
+	glTranslatef(0,0.3,0);
+	glutSolidSphere(0.25,50,50);
+
+	glColor3f(0,0,0);
+	glTranslatef(-0.18,0.17,0);
+	glutSolidTorus(0.07,0.05,50,50);
+	glTranslatef(0.36,0,0);
+	glutSolidTorus(0.07,0.05,50,50);
+	//glRotatef(45,0,1,1);
+	//gluCylinder(obj, 5, 5, 10, 30, 30);
+
+	//gluQuadricNormals(ear, GLU_SMOOTH);
+	//gluCylinder(ear, 1.0, 1.0, 0.4, 10, 16);
+}
+void Panda_Upper_Hand()
+{
+	glColor3ub(0,0,0);
+	glutSolidSphere(0.09,50,50);
+	GLUquadric* upperArm;
+	upperArm=gluNewQuadric();
+	glTranslatef(-0.02,-0.05,0);
+	glRotatef(90,1,-0.3,0);
+	gluCylinder(upperArm, 0.05, 0.05, 0.18, 30, 30);
+
+}
+void Panda_Lower_Hand()
+{
+	glColor3ub(0,0,0);
+	GLUquadric* lowerArm;
+	lowerArm=gluNewQuadric();
+	//glRotatef(90,1,-0.3,0);
+	gluCylinder(lowerArm, 0.07, 0.065, 0.15, 30, 30);
+	glColor3ub(0,0,0);
+	glTranslatef(-0.005,0,0.19);
+	glutSolidSphere(0.09,50,50);
+}
+void Panda_Upper_Leg()
+{
+	GLUquadric* upperLeg;
+	upperLeg=gluNewQuadric();
+	glRotatef(90,1,-0.2,0);
+	gluCylinder(upperLeg, 0.07, 0.07, 0.3, 30, 30);
+}
+void Panda_Lower_Leg()
+{
+	GLUquadric* lowerLeg;
+	lowerLeg=gluNewQuadric();
+	//glRotatef(90,1,-0.3,0);
+	gluCylinder(lowerLeg, 0.1, 0.1, 0.2, 30, 30);
+}
+void Panda_Sole()
+{
+	GLUquadric* sole;
+	sole=gluNewQuadric();
+	glRotatef(90,-1,0.2,0);
+	glScalef(1,0.8,1);
+	gluCylinder(sole, 0.1, 0.1, 0.2, 30, 30);
+}
+void Panda_Wing(){}
+void Render_Panda()
+{
+	//TORSO
+	glPushMatrix();
+		glTranslatef(0,-0.05,0);
+		Panda_Torso();
+	glPopMatrix();
+	//HEAD&EARS
+	glPushMatrix();
+		glTranslatef(0,0.05,0);
+		Panda_Head();
+	glPopMatrix();
+	//LEFT HAND
+	glPushMatrix();
+		glTranslatef(-0.22,0.085,0);
+		Panda_Upper_Hand();
+		glTranslatef(-0.0065,0,0.085);
+		Panda_Lower_Hand();
+	glPopMatrix();
+	//RIGHT HAND
+	glPushMatrix();
+		glTranslatef(0.22,0.085,0);
+		glRotatef(180,0,1,0);
+		Panda_Upper_Hand();
+		glTranslatef(-0.0065,0,0.085);
+		Panda_Lower_Hand();
+	glPopMatrix();
+	//LEFT LEG
+	glPushMatrix();
+		glTranslatef(-0.1,-0.18,0);
+		Panda_Upper_Leg();
+		glTranslatef(-0.007,0,0.15);
+		Panda_Lower_Leg();
+		glTranslatef(0,-0.1,0.25);
+		Panda_Sole();
+	glPopMatrix();
+	//RIGHT LEG
+	glPushMatrix();
+		//Panda_Upper_Leg();
+		//Panda_Lower_Leg();
+	glPopMatrix();
+	//LEFT WING
+	glPushMatrix();
+		Panda_Wing();
+	glPopMatrix();
+	//RIGHT WING
+	glPushMatrix();
+		Panda_Wing();
+	glPopMatrix();
+
+}
 // GLUT callback. Called to draw the scene.
 void My_Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glBegin(GL_TRIANGLES);
+	/*glBegin(GL_TRIANGLES);
 	{
 		glColor3ub(timer_cnt, 0, 255 - timer_cnt);
 		glVertex3fv(tri_v1);
@@ -38,7 +174,13 @@ void My_Display()
 		glColor3ub(255 - timer_cnt, 0, timer_cnt);
 		glVertex3fv(tri_v3);
 	}
-	glEnd();
+	glEnd();*/
+	glPushMatrix();
+	glTranslatef(0,0,1);
+	glRotatef(timer_cnt,0,1,0);
+	//printf("%d\n",timer_cnt);
+	Render_Panda();
+	glPopMatrix();
 
 	glutSwapBuffers();
 }
@@ -46,11 +188,47 @@ void My_Display()
 void My_Reshape(int width, int height)
 {
 	glViewport(0, 0, width, height);
-
 	float viewportAspect = (float)width / (float)height;
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColorMaterial(GL_FRONT, GL_AMBIENT);
+
+	GLfloat light_ambient[]  = { 0.5, 0.5, 0.5, 1.0};
+	GLfloat light_diffuse[]  = { 0.3, 0.3, 0.3, 1.0};
+	GLfloat light_specular[] = { 0.8, 0.8, 0.8, 1.0};
+	GLfloat light_position[] = { -8, 15, 15,0};  //光源的位置
+
+	glEnable(GL_LIGHTING);                                 //開燈
+
+	   // 設定發光體的光源的特性
+	glLightfv( GL_LIGHT0, GL_AMBIENT, light_ambient);      //環境光(Ambient Light)
+	glLightfv( GL_LIGHT0, GL_DIFFUSE, light_diffuse);      //散射光(Diffuse Light)
+	glLightfv( GL_LIGHT0, GL_SPECULAR,light_specular);     //反射光(Specular Light)
+   
+	glLightfv( GL_LIGHT0, GL_POSITION,light_position);     //光的座標
+
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_DEPTH_TEST); 
+
+
+	//定義物體材質特性的數值
+	GLfloat mat_ambient[]={0.2,0.2,0.2,1.0}; 
+	GLfloat mat_diffuse[]={0.8,0.8,0.8,1.0}; 
+	GLfloat mat_specular[]={ 1.0,1.0,1.0,1.0}; 
+	GLfloat mat_shininess[]={80.0};
+
+
+	glMaterialfv(GL_FRONT,GL_AMBIENT,mat_ambient); 
+	glMaterialfv(GL_FRONT,GL_DIFFUSE,mat_diffuse); 
+	glMaterialfv(GL_FRONT,GL_SPECULAR,mat_specular); 
+	glMaterialfv(GL_FRONT,GL_SHININESS,mat_shininess);
+
+
 	gluOrtho2D(-1 * viewportAspect, 1 * viewportAspect, -1, 1);
+	//gluPerspective( 100, viewportAspect, 1.0, 500.0);   //透視投影
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
@@ -59,6 +237,7 @@ void My_Reshape(int width, int height)
 void My_Timer(int val)
 {
 	timer_cnt++;
+	timer_cnt%=360;
 	glutPostRedisplay();
 	if(timer_enabled)
 	{
@@ -133,13 +312,13 @@ int main(int argc, char *argv[])
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(600, 600);
-	glutCreateWindow("Quiz Framework"); // You cannot use OpenGL functions before this line; The OpenGL context must be created first by glutCreateWindow()!
+	glutCreateWindow("Robot Panda"); // You cannot use OpenGL functions before this line; The OpenGL context must be created first by glutCreateWindow()!
 	dumpInfo();
 	////////////////////
 	
 	// Initialize OpenGL states.
 	////////////////////////
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	////////////////////////

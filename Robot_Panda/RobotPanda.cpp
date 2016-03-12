@@ -100,15 +100,61 @@ void Panda_Lower_Leg()
 	//glRotatef(90,1,-0.3,0);
 	gluCylinder(lowerLeg, 0.1, 0.1, 0.2, 30, 30);
 }
-void Panda_Sole()
+void Panda_Left_Sole()
 {
 	GLUquadric* sole;
 	sole=gluNewQuadric();
 	glRotatef(90,-1,0.2,0);
 	glScalef(1,0.8,1);
 	gluCylinder(sole, 0.1, 0.1, 0.2, 30, 30);
+	glTranslatef(0,-0.05,0.1);
+	glScalef(1,0.6,1);
+	glutSolidCube(0.2);
+	glScalef(1,1.8,0.96);
+	glTranslatef(0,0.05,0.08);
+	glutSolidSphere(0.1,50,50);
+	glTranslatef(0,0,-0.002);
+	glRotatef(90,1,0,0);
+	gluCylinder(sole,0.102,0.102,0.105,30,30);
+	glRotatef(90,1,0,0);
+	glScalef(1,0.98,1);
+	glTranslatef(0,0.01,0.182);
+	gluDisk(sole,0,0.1,30,30);
 }
-void Panda_Wing(){}
+void Panda_Right_Sole()
+{
+	GLUquadric* sole;
+	sole=gluNewQuadric();
+	glRotatef(90,-1,0.2,0);
+	glScalef(1,0.8,1);
+	gluCylinder(sole, 0.1, 0.1, 0.2, 30, 30);
+	glTranslatef(0,-0.05,0.1);
+	glScalef(1,0.6,1);
+	glutSolidCube(0.2);
+	glScalef(1,1.8,0.96);
+	glTranslatef(0,0.05,-0.08);
+	glutSolidSphere(0.1,50,50);
+	glTranslatef(0,0,-0.002);
+	glRotatef(90,1,0,0);
+	gluCylinder(sole,0.102,0.102,0.105,30,30);
+	glRotatef(90,1,0,0);
+	glScalef(1,0.98,1);
+	glTranslatef(0,0.01,-0.182);
+	glRotatef(180,0,0,0);
+	gluDisk(sole,0,0.1,30,30);
+}
+void Panda_Wing()
+{
+	glColor3ub(255,0,85);
+	GLUquadric* sole;
+	sole=gluNewQuadric();
+	glRotatef(90,0,1,0);
+	glTranslatef(0.1,0.15,-0.6);
+	glScalef(0.4,1,1);
+	glRotatef(10,1,0,0);
+	gluCylinder(sole, 0.15, 0.08, 0.5, 30, 30);
+	gluCylinder(sole, 0.15, 0, 0.5, 30, 30);
+}
 void Render_Panda()
 {
 	//TORSO
@@ -142,13 +188,18 @@ void Render_Panda()
 		Panda_Upper_Leg();
 		glTranslatef(-0.007,0,0.15);
 		Panda_Lower_Leg();
-		glTranslatef(0,-0.1,0.25);
-		Panda_Sole();
+		glTranslatef(-0.02,-0.1,0.22);
+		Panda_Left_Sole();
 	glPopMatrix();
 	//RIGHT LEG
 	glPushMatrix();
-		//Panda_Upper_Leg();
-		//Panda_Lower_Leg();
+		glRotatef(180,0,1,0);
+		glTranslatef(-0.1,-0.18,0);
+		Panda_Upper_Leg();
+		glTranslatef(-0.007,-0.01,0.15);
+		Panda_Lower_Leg();
+		glTranslatef(-0.02,-0.09,0.22);
+		Panda_Right_Sole();
 	glPopMatrix();
 	//LEFT WING
 	glPushMatrix();

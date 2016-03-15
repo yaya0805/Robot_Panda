@@ -49,7 +49,7 @@ void Panda_Head()
 {
 
 	glColor3ub(255,255,255);
-	glScalef(1.1,1,0.9);
+	glScalef(1.1,1,1);
 	glTranslatef(0,0.3,0);
 	glutSolidSphere(0.25,50,50);
 
@@ -369,7 +369,7 @@ int main(int argc, char *argv[])
 	
 	// Initialize OpenGL states.
 	////////////////////////
-	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	////////////////////////

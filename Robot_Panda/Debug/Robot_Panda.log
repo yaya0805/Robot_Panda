@@ -1,4 +1,4 @@
-﻿已經開始建置於 11/3/2016 12:04:57。
+﻿已經開始建置於 16/3/2016 2:29:36。
      1>節點 2 (build 目標) 上的專案 "C:\Users\Scoly\Desktop\Robot\Robot_Panda\Robot_Panda\Robot_Panda.vcxproj"。
      1>InitializeBuildStatus:
          由於指定了 "AlwaysCreate"，因此正在建立 "Debug\Robot_Panda.unsuccessfulbuild"。
@@ -8,7 +8,6 @@
      1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(33): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
      1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(33): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
      1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(39): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
-     1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(52): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
      1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(52): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
      1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(53): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
      1>c:\users\scoly\desktop\robot\robot_panda\robot_panda\robotpanda.cpp(57): warning C4305: '引數' : 從 'double' 轉換為 'GLfloat'，是由較大的型別轉換為較小的型別，可能導致資料遺失
@@ -106,4 +105,4 @@
 
 建置成功。
 
-經過時間 00:00:00.65
+經過時間 00:00:00.60

@@ -2,10 +2,14 @@
 #include <freeglut.h>
 #include <cstdio>
 #include <cstdlib>
+#include <windows.h>
+#include <wingdi.h>
+#include <math.h>
 
 #define MENU_TIMER_START 1
 #define MENU_TIMER_STOP 2
 #define MENU_EXIT 3
+#define GL_PI 3.141592654 
 
 const GLfloat tri_v1[3] = {-0.5f, -0.4f, 0.0f};
 const GLfloat tri_v2[3] = { 0.5f, -0.4f, 0.0f};
@@ -24,14 +28,30 @@ void dumpInfo(void)
     printf("Version: %s\n", glGetString (GL_VERSION));
     printf("GLSL: %s\n", glGetString (GL_SHADING_LANGUAGE_VERSION));
 }
+void Panda_Button()
+{
+	glColor3f(0.9,0.9,0.9);
+	GLUquadric* button;
+	button=gluNewQuadric();
+	//glTranslatef(0,0,0.2);
+	gluCylinder(button, 0.1, 0.1, 0.05, 30, 30);
+	glTranslatef(0,0,0.05);
+	gluDisk(button,0,0.1,30,30);
+	glBegin(GL_QUADS);
+      glNormal3f(0,0,1);
+         glTexCoord2f(0,1);glVertex3f(-0.07, 0.07,0.001);
+         glTexCoord2f(0,0);glVertex3f(-0.07,-0.07,0.001);
+         glTexCoord2f(1,0);glVertex3f( 0.07,-0.07,0.001);
+         glTexCoord2f(1,1);glVertex3f( 0.07, 0.07,0.001);
+	glEnd();
 
+}
 
 void Panda_Torso()
 {
 
 	glColor3ub(255,255,255);
 	glScalef(1.0,1.1,0.9);
-
 	glutSolidSphere(0.2,50,50);
 	glColor3f(0,0,0);
 	GLUquadric* neck;
@@ -39,10 +59,7 @@ void Panda_Torso()
 	glTranslatef(0,0.2,0);
 	glRotatef(90,1,0,0);
 	gluCylinder(neck, 0.14, 0.18, 0.1, 30, 30);
-	/*glColor3ub(0,0,0);
-	glTranslatef(0.4,0,0);
-	glRotatef(90,1,0,0);
-	glutSolidCone(0.1,0.1,50,50);*/
+
 
 }
 void Panda_Head()
@@ -53,16 +70,47 @@ void Panda_Head()
 	glTranslatef(0,0.3,0);
 	glutSolidSphere(0.25,50,50);
 
-	glColor3f(0,0,0);
-	glTranslatef(-0.18,0.17,0);
-	glutSolidTorus(0.07,0.05,50,50);
-	glTranslatef(0.36,0,0);
-	glutSolidTorus(0.07,0.05,50,50);
-	//glRotatef(45,0,1,1);
-	//gluCylinder(obj, 5, 5, 10, 30, 30);
+	glPushMatrix();
+		glColor3f(0,0,0);
+		glTranslatef(-0.18,0.17,0);
+		glutSolidTorus(0.07,0.05,50,50);
+		glTranslatef(0.36,0,0);
+		glutSolidTorus(0.07,0.05,50,50);
+	glPopMatrix();
 
-	//gluQuadricNormals(ear, GLU_SMOOTH);
-	//gluCylinder(ear, 1.0, 1.0, 0.4, 10, 16);
+	glPushMatrix();
+		glTranslatef(0.12,0.03,0.2);
+		glRotatef(30,-1,4,1);
+		glScalef(1.5,2,0.7);
+		glutSolidSphere(0.05,50,50);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(0,-0.05,0.23);
+		glutSolidSphere(0.02,50,50);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(-0.12,0.03,0.2);
+		glRotatef(30,-1,-4,-1);
+		glScalef(1.5,2,0.7);
+		glutSolidSphere(0.05,50,50);
+	glPopMatrix();
+	glPushMatrix();
+		GLUquadric* mouth;
+		mouth=gluNewQuadric();
+		glTranslatef(-0.05,-0.07,0.08);
+		glRotatef(90,0,1,0);
+		gluCylinder(mouth, 0.15, 0.15, 0.1, 30, 30);
+	glPopMatrix();
+	glPushMatrix();
+		glColor3f(1,1,1);
+		//GLUquadric* mouth;
+		mouth=gluNewQuadric();
+		glTranslatef(-0.04,-0.08,0.077);
+		glRotatef(90,0,1,0);
+		gluCylinder(mouth, 0.15, 0.15, 0.08, 30, 30);
+	glPopMatrix();
+	
+	
 }
 void Panda_Upper_Hand()
 {
@@ -143,17 +191,54 @@ void Panda_Right_Sole()
 	glRotatef(180,0,0,0);
 	gluDisk(sole,0,0.1,30,30);
 }
-void Panda_Wing()
+void Panda_Wing_Right()
 {
 	glColor3ub(255,0,85);
 	GLUquadric* sole;
 	sole=gluNewQuadric();
 	glRotatef(90,0,1,0);
-	glTranslatef(0.1,0.15,-0.6);
+	glTranslatef(0.1,0.2,-0.6);
 	glScalef(0.4,1,1);
-	glRotatef(10,1,0,0);
+	glRotatef(20,1,0,0);
 	gluCylinder(sole, 0.15, 0.08, 0.5, 30, 30);
-	gluCylinder(sole, 0.15, 0, 0.5, 30, 30);
+	glTranslatef(0,0,-0.3);
+	gluCylinder(sole, 0, 0.15, 0.3, 30, 30);
+}
+void Panda_Wing_Left()
+{
+	glColor3ub(255,0,85);
+	GLUquadric* sole;
+	sole=gluNewQuadric();
+	glRotatef(90,0,-1,0);
+	glTranslatef(-0.1,0.2,-0.6);
+	glScalef(0.4,1,1);
+	glRotatef(20,1,0,0);
+	gluCylinder(sole, 0.15, 0.08, 0.5, 30, 30);
+	glTranslatef(0,0,-0.3);
+	//glScalef(0.9,1,1);
+	//glRotatef(45,-1,0,0);
+	gluCylinder(sole, 0, 0.15, 0.3, 30, 30);
+}
+void Panda_Rocket()
+{
+	glColor3f(0,0,0);
+	GLUquadric* rocket;
+	rocket=gluNewQuadric();
+	glPushMatrix();
+		glTranslatef(0,0,-0.5);
+		glRotatef(-90,1,0,0);
+		gluCylinder(rocket, 0.1, 0.09, 0.05, 30, 30);
+		glColor3f(1,1,1);
+		glTranslatef(0,0,0.05);
+		gluCylinder(rocket, 0.09, 0.08, 0.05, 30, 30);
+		glColor3f(0,0,0);
+		glTranslatef(0,0,0.05);
+		gluCylinder(rocket, 0.08, 0.07, 0.05, 30, 30);
+		glTranslatef(0,0,0.05);
+		gluCylinder(rocket, 0.07, 0.045, 0.08, 30, 30);
+		glTranslatef(0,0,0.08);
+		gluCylinder(rocket, 0.045, 0.0, 0.1, 30, 30);
+	glPopMatrix();
 }
 void Render_Panda()
 {
@@ -161,6 +246,12 @@ void Render_Panda()
 	glPushMatrix();
 		glTranslatef(0,-0.05,0);
 		Panda_Torso();
+	glPopMatrix();
+	//BUTTON
+	glPushMatrix();
+		glTranslatef(0,-0.05,0.13);
+		//glRotatef(5,1,0,0);
+		Panda_Button();
 	glPopMatrix();
 	//HEAD&EARS
 	glPushMatrix();
@@ -203,11 +294,21 @@ void Render_Panda()
 	glPopMatrix();
 	//LEFT WING
 	glPushMatrix();
-		Panda_Wing();
+		glTranslatef(-0.05,0,-0.05);
+		Panda_Wing_Left();
 	glPopMatrix();
 	//RIGHT WING
 	glPushMatrix();
-		Panda_Wing();
+		glTranslatef(0.05,0,-0.05);
+		Panda_Wing_Right();
+	glPopMatrix();
+	//ROCKET
+	glPushMatrix();
+		glScalef(1,1.2,1);
+		glTranslatef(-0.08,-0.14,0.3);
+		Panda_Rocket();
+		glTranslatef(0.16,0,0);
+		Panda_Rocket();
 	glPopMatrix();
 
 }
@@ -216,21 +317,10 @@ void My_Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	/*glBegin(GL_TRIANGLES);
-	{
-		glColor3ub(timer_cnt, 0, 255 - timer_cnt);
-		glVertex3fv(tri_v1);
-		glColor3ub(255, timer_cnt, 255 - timer_cnt);
-		glVertex3fv(tri_v2);
-		glColor3ub(255 - timer_cnt, 0, timer_cnt);
-		glVertex3fv(tri_v3);
-	}
-	glEnd();*/
 	glPushMatrix();
-	glTranslatef(0,0,1);
-	glRotatef(timer_cnt,0,1,0);
-	//printf("%d\n",timer_cnt);
-	Render_Panda();
+		glTranslatef(0,0,1);
+		glRotatef(timer_cnt,0,1,0);
+		Render_Panda();
 	glPopMatrix();
 
 	glutSwapBuffers();
@@ -243,12 +333,14 @@ void My_Reshape(int width, int height)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
+	//Lighting and Matrials
+
 	glEnable(GL_COLOR_MATERIAL);
 	glColorMaterial(GL_FRONT, GL_AMBIENT);
 
-	GLfloat light_ambient[]  = { 0.5, 0.5, 0.5, 1.0};
+	GLfloat light_ambient[]  = { 0.6, 0.6, 0.6, 1.0};
 	GLfloat light_diffuse[]  = { 0.3, 0.3, 0.3, 1.0};
-	GLfloat light_specular[] = { 0.8, 0.8, 0.8, 1.0};
+	GLfloat light_specular[] = { 0.9, 0.9, 0.9, 1.0};
 	GLfloat light_position[] = { -8, 15, 15,0};  //光源的位置
 
 	glEnable(GL_LIGHTING);                                 //開燈
@@ -283,6 +375,67 @@ void My_Reshape(int width, int height)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+}
+
+unsigned char *LoadBitmapFile(char *fileName, BITMAPINFO *bitmapInfo)
+{
+   FILE            *fp;
+   BITMAPFILEHEADER   bitmapFileHeader;   // Bitmap file header
+   unsigned char       *bitmapImage;      // Bitmap image data
+   unsigned int      lInfoSize;         // Size of information
+   unsigned int      lBitSize;         // Size of bitmap
+   
+   unsigned char change;
+    int pixel;
+    int p=0;
+       
+   fp = fopen(fileName, "rb");
+   fread(&bitmapFileHeader, sizeof(BITMAPFILEHEADER), 1, fp);         //讀取 bitmap header
+   
+   lInfoSize = bitmapFileHeader.bfOffBits - sizeof(BITMAPFILEHEADER);   //Info的size
+   fread(bitmapInfo, lInfoSize, 1, fp);
+   
+   
+   lBitSize = bitmapInfo->bmiHeader.biSizeImage;                  //配置記憶體
+   bitmapImage = new BYTE[lBitSize];
+   fread(bitmapImage, 1, lBitSize, fp);                        //讀取影像檔
+   
+   fclose(fp);
+   
+   //此時傳回bitmapImage的話，顏色會是BGR順序，下面迴圈會改順序為RGB
+   pixel = (bitmapInfo->bmiHeader.biWidth)*(bitmapInfo->bmiHeader.biHeight);
+
+   for( int i=0 ; i<pixel ; i++, p+=3 )
+   {
+      //交換bitmapImage[p]和bitmapImage[p+2]的值
+      change = bitmapImage[p];
+      bitmapImage[p] = bitmapImage[p+2];
+      bitmapImage[p+2]  = change;
+   }
+   
+   return bitmapImage;
+}
+
+void texture(void)
+{
+   int width;
+   int height;
+   unsigned char *image;         //得到圖案，是能直接讓OpenGL使用的資料了
+   BITMAPINFO bmpinfo;            //用來存放HEADER資訊
+   
+   image = LoadBitmapFile("flower.bmp", &bmpinfo);
+   width = bmpinfo.bmiHeader.biWidth;
+   height = bmpinfo.bmiHeader.biHeight;
+   
+   glTexImage2D(GL_TEXTURE_2D,0,3,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,image);
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	//glBindTexture(GL_TEXTURE_2D, m_worldmap.TexName());
+   
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }
 
 void My_Timer(int val)
@@ -389,6 +542,8 @@ int main(int argc, char *argv[])
 
 	glutSetMenu(menu_main);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+	texture();
 	////////////////////////////
 
 	// Register GLUT callback functions.

@@ -9,6 +9,7 @@
 #define MENU_TIMER_START 1
 #define MENU_TIMER_STOP 2
 #define MENU_EXIT 3
+#define MENU_ANIMATION_FLY 4
 #define GL_PI 3.141592654 
 
 const GLfloat tri_v1[3] = {-0.5f, -0.4f, 0.0f};
@@ -17,8 +18,17 @@ const GLfloat tri_v3[3] = { 0.0f,  0.6f, 0.0f};
 
 GLUquadricObj *quadratic;
 int timer_cnt = 0;
+double fly_cnt=0;
 bool timer_enabled = true;
+bool fly_animation = false;
+bool fly_enabled = false;
 unsigned int timer_speed = 16;
+int left_right_rotate=0;
+int up_down_rotate=0;
+bool left_hand_upper_ani=0;
+bool right_hand_upper_ani=0;
+bool stop_up=0;
+bool stop_down=0;
 
 // Print OpenGL context related information.
 void dumpInfo(void)
@@ -27,6 +37,47 @@ void dumpInfo(void)
     printf("Renderer: %s\n", glGetString (GL_RENDERER));
     printf("Version: %s\n", glGetString (GL_VERSION));
     printf("GLSL: %s\n", glGetString (GL_SHADING_LANGUAGE_VERSION));
+}
+int Press_The_Button_Lower(bool flag)
+{
+	if(!flag) return 0;
+	else if(stop_down) {
+		glRotatef(89,0,1,0);
+		return 1;
+	}
+	else{
+		if(timer_cnt<89){
+			stop_down=1;
+			glRotatef(timer_cnt,0,1,0);
+			return 0;
+		}
+		else{
+			glRotatef(89,0,1,0);
+			return 1;
+		}
+	}
+}
+int Press_The_Button_Upper(bool flag)
+{
+	if(!flag) return 0;
+	else if(stop_up) {
+		glRotatef(79,1,0,0);
+		return 1;
+	}
+	else{
+		if(timer_cnt<79){
+			glRotatef(timer_cnt,1,0,0);
+			return 0;
+		}
+		else{
+			//timer_cnt=0;
+			//fly_animation=0;
+			stop_up=1;
+			glRotatef(79,1,0,0);
+			timer_cnt=0;
+			return 1;
+		}
+	}
 }
 void Panda_Button()
 {
@@ -44,9 +95,7 @@ void Panda_Button()
          glTexCoord2f(1,0);glVertex3f( 0.07,-0.07,0.001);
          glTexCoord2f(1,1);glVertex3f( 0.07, 0.07,0.001);
 	glEnd();
-
 }
-
 void Panda_Torso()
 {
 
@@ -105,25 +154,28 @@ void Panda_Head()
 		glColor3f(1,1,1);
 		//GLUquadric* mouth;
 		mouth=gluNewQuadric();
-		glTranslatef(-0.04,-0.08,0.077);
+		glTranslatef(-0.042,-0.08,0.077);
 		glRotatef(90,0,1,0);
 		gluCylinder(mouth, 0.15, 0.15, 0.08, 30, 30);
 	glPopMatrix();
 	
 	
 }
-void Panda_Upper_Hand()
+void Panda_Upper_Hand(bool flag)
 {
 	glColor3ub(0,0,0);
 	glutSolidSphere(0.09,50,50);
+	bool f=Press_The_Button_Upper(flag);
 	GLUquadric* upperArm;
 	upperArm=gluNewQuadric();
 	glTranslatef(-0.02,-0.05,0);
 	glRotatef(90,1,-0.3,0);
-	gluCylinder(upperArm, 0.05, 0.05, 0.18, 30, 30);
+	gluCylinder(upperArm, 0.05, 0.05, 0.1, 30, 30);
+	Press_The_Button_Lower(f);
 
 }
 void Panda_Lower_Hand()
+
 {
 	glColor3ub(0,0,0);
 	GLUquadric* lowerArm;
@@ -238,6 +290,12 @@ void Panda_Rocket()
 		gluCylinder(rocket, 0.07, 0.045, 0.08, 30, 30);
 		glTranslatef(0,0,0.08);
 		gluCylinder(rocket, 0.045, 0.0, 0.1, 30, 30);
+		//BEAM
+		if(fly_enabled){
+			glColor3ub(255,255,0);
+			glTranslatef(0,0,-0.4);
+			gluCylinder(rocket, fly_cnt, fly_cnt, 0.3, 30, 30);
+		}
 	glPopMatrix();
 }
 void Render_Panda()
@@ -261,15 +319,19 @@ void Render_Panda()
 	//LEFT HAND
 	glPushMatrix();
 		glTranslatef(-0.22,0.085,0);
-		Panda_Upper_Hand();
+		Panda_Upper_Hand(left_hand_upper_ani);
 		glTranslatef(-0.0065,0,0.085);
 		Panda_Lower_Hand();
 	glPopMatrix();
 	//RIGHT HAND
 	glPushMatrix();
+		//stop=0;
+
 		glTranslatef(0.22,0.085,0);
 		glRotatef(180,0,1,0);
-		Panda_Upper_Hand();
+		Panda_Upper_Hand(right_hand_upper_ani);
+		//bool ff=Press_The_Button_Lower(0);
+		//if(ff) fly_animation=0;
 		glTranslatef(-0.0065,0,0.085);
 		Panda_Lower_Hand();
 	glPopMatrix();
@@ -319,13 +381,18 @@ void My_Display()
 
 	glPushMatrix();
 		glTranslatef(0,0,1);
-		glRotatef(timer_cnt,0,1,0);
+		glRotatef(left_right_rotate,0,1,0);
+		glRotatef(up_down_rotate,1,0,0);
+		//if(fly_enabled) glTranslatef(0,fly_cnt,0);
+		if(fly_animation){
+			left_hand_upper_ani=0;
+			right_hand_upper_ani=1;
+		}
 		Render_Panda();
 	glPopMatrix();
 
 	glutSwapBuffers();
 }
-
 void My_Reshape(int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -376,7 +443,6 @@ void My_Reshape(int width, int height)
 	glLoadIdentity();
 	gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
-
 unsigned char *LoadBitmapFile(char *fileName, BITMAPINFO *bitmapInfo)
 {
    FILE            *fp;
@@ -415,7 +481,6 @@ unsigned char *LoadBitmapFile(char *fileName, BITMAPINFO *bitmapInfo)
    
    return bitmapImage;
 }
-
 void texture(void)
 {
    int width;
@@ -428,27 +493,30 @@ void texture(void)
    height = bmpinfo.bmiHeader.biHeight;
    
    glTexImage2D(GL_TEXTURE_2D,0,3,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,image);
-   glEnable(GL_TEXTURE_2D);
+   glEnable(GL_TEXTURE_2D);;
    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	//glBindTexture(GL_TEXTURE_2D, m_worldmap.TexName());
+	//glBindTexture(GL_TEXTURE_2D, image)
    
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }
-
 void My_Timer(int val)
 {
-	timer_cnt++;
-	timer_cnt%=360;
+	if(fly_animation||fly_enabled) 
+		timer_cnt++;
+	//timer_cnt%=360;
+	
+	if(timer_cnt<=45) fly_cnt+=0.002;
+	else fly_cnt-=0.002;
+	if(timer_cnt==90) timer_cnt=0;
 	glutPostRedisplay();
 	if(timer_enabled)
 	{
 		glutTimerFunc(timer_speed, My_Timer, val);
 	}
 }
-
 void My_Mouse(int button, int state, int x, int y)
 {
 	if(state == GLUT_DOWN)
@@ -460,12 +528,10 @@ void My_Mouse(int button, int state, int x, int y)
 		printf("Mouse %d is released at (%d, %d)\n", button, x, y);
 	}
 }
-
 void My_Keyboard(unsigned char key, int x, int y)
 {
 	printf("Key %c is pressed at (%d, %d)\n", key, x, y);
 }
-
 void My_SpecialKeys(int key, int x, int y)
 {
 	switch(key)
@@ -477,19 +543,32 @@ void My_SpecialKeys(int key, int x, int y)
 		printf("Page up is pressed at (%d, %d)\n", x, y);
 		break;
 	case GLUT_KEY_LEFT:
+		left_right_rotate-=5;
 		printf("Left arrow is pressed at (%d, %d)\n", x, y);
+		break;
+	case GLUT_KEY_RIGHT:
+		left_right_rotate+=5;
+		printf("Right arrow is pressed at (%d, %d)\n", x, y);
+		break;
+	case GLUT_KEY_UP:
+		up_down_rotate-=5;
+		printf("Up arrow is pressed at (%d, %d)\n", x, y);
+		break;
+	case GLUT_KEY_DOWN:
+		up_down_rotate+=5;
+		printf("Down arrow is pressed at (%d, %d)\n", x, y);
 		break;
 	default:
 		printf("Other special key is pressed at (%d, %d)\n", x, y);
 		break;
 	}
 }
-
 void My_Menu(int id)
 {
 	switch(id)
 	{
 	case MENU_TIMER_START:
+		fly_enabled=false;
 		if(!timer_enabled)
 		{
 			timer_enabled = true;
@@ -497,16 +576,27 @@ void My_Menu(int id)
 		}
 		break;
 	case MENU_TIMER_STOP:
-		timer_enabled = false;
+		fly_enabled=false;
+		timer_cnt=0;
 		break;
 	case MENU_EXIT:
 		exit(0);
+		break;
+	case MENU_ANIMATION_FLY:
+		fly_cnt=0;
+		timer_cnt=0;
+		fly_animation=true;
+		//fly_enabled=true;
+		if(!timer_enabled)
+		{
+			timer_enabled = true;
+			glutTimerFunc(timer_speed, My_Timer, 0);
+		}
 		break;
 	default:
 		break;
 	}
 }
-
 int main(int argc, char *argv[])
 {
 	// Initialize GLUT and GLEW, then create a window.
@@ -531,13 +621,19 @@ int main(int argc, char *argv[])
 	////////////////////////////
 	int menu_main = glutCreateMenu(My_Menu);
 	int menu_timer = glutCreateMenu(My_Menu);
+	int menu_animation = glutCreateMenu(My_Menu);
 
 	glutSetMenu(menu_main);
-	glutAddSubMenu("Timer", menu_timer);
+	//glutAddSubMenu("Timer", menu_timer);
+	glutAddSubMenu("Animation", menu_animation);
 	glutAddMenuEntry("Exit", MENU_EXIT);
 
-	glutSetMenu(menu_timer);
+	/*glutSetMenu(menu_timer);
 	glutAddMenuEntry("Start", MENU_TIMER_START);
+	glutAddMenuEntry("Stop", MENU_TIMER_STOP);*/
+
+	glutSetMenu(menu_animation);
+	glutAddMenuEntry("Fly", MENU_ANIMATION_FLY);
 	glutAddMenuEntry("Stop", MENU_TIMER_STOP);
 
 	glutSetMenu(menu_main);

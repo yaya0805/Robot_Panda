@@ -29,6 +29,8 @@ bool left_hand_upper_ani=0;
 bool right_hand_upper_ani=0;
 bool stop_up=0;
 bool stop_down=0;
+bool button_pressed=0;
+bool delay=0;
 
 // Print OpenGL context related information.
 void dumpInfo(void)
@@ -38,44 +40,76 @@ void dumpInfo(void)
     printf("Version: %s\n", glGetString (GL_VERSION));
     printf("GLSL: %s\n", glGetString (GL_SHADING_LANGUAGE_VERSION));
 }
-int Press_The_Button_Lower(bool flag)
+void Init_All()
+{
+	left_right_rotate=0;
+	up_down_rotate=0;
+	left_hand_upper_ani=0;
+	right_hand_upper_ani=0;
+	stop_up=0;
+	stop_down=0;
+	button_pressed=0;
+	timer_cnt = 0;
+	fly_cnt=0;
+	timer_enabled = true;
+	fly_animation = false;
+	fly_enabled = false;
+	delay=0;
+}
+int Press_The_Button_Lower(bool flag,int deg)
 {
 	if(!flag) return 0;
 	else if(stop_down) {
-		glRotatef(89,0,1,0);
+		glRotatef(deg,0,1,0);
 		return 1;
 	}
 	else{
-		if(timer_cnt<89){
-			stop_down=1;
+		if(timer_cnt<deg){		
 			glRotatef(timer_cnt,0,1,0);
 			return 0;
 		}
 		else{
-			glRotatef(89,0,1,0);
+			stop_down=1;
+			timer_cnt=0;
+			glRotatef(deg,0,1,0);
 			return 1;
 		}
 	}
 }
-int Press_The_Button_Upper(bool flag)
+int Press_The_Button_Upper(bool flag,int deg)
 {
 	if(!flag) return 0;
 	else if(stop_up) {
-		glRotatef(79,1,0,0);
+		glRotatef(deg,1,0,0);
 		return 1;
 	}
 	else{
-		if(timer_cnt<79){
+		if(timer_cnt<abs(deg)){
 			glRotatef(timer_cnt,1,0,0);
 			return 0;
 		}
 		else{
-			//timer_cnt=0;
-			//fly_animation=0;
 			stop_up=1;
-			glRotatef(79,1,0,0);
+			glRotatef(deg,1,0,0);
 			timer_cnt=0;
 			return 1;
+		}
+	}
+}
+void Raise_My_Hand(bool flag,int deg)
+{
+	if(!flag) return ;
+	else if(stop_down) {
+		glRotatef(deg,0,-1,0);
+	}
+	else{
+		if(timer_cnt<abs(deg)){		
+			glRotatef(timer_cnt,0,-1,0);
+		}
+		else{
+			stop_down=1;
+			timer_cnt=0;
+			glRotatef(deg,0,-1,0);
 		}
 	}
 }
@@ -84,7 +118,7 @@ void Panda_Button()
 	glColor3f(0.9,0.9,0.9);
 	GLUquadric* button;
 	button=gluNewQuadric();
-	//glTranslatef(0,0,0.2);
+	if(button_pressed) glTranslatef(0,0,-0.01);
 	gluCylinder(button, 0.1, 0.1, 0.05, 30, 30);
 	glTranslatef(0,0,0.05);
 	gluDisk(button,0,0.1,30,30);
@@ -165,13 +199,16 @@ void Panda_Upper_Hand(bool flag)
 {
 	glColor3ub(0,0,0);
 	glutSolidSphere(0.09,50,50);
-	bool f=Press_The_Button_Upper(flag);
+	bool f=Press_The_Button_Upper(flag,79);	
 	GLUquadric* upperArm;
 	upperArm=gluNewQuadric();
 	glTranslatef(-0.02,-0.05,0);
 	glRotatef(90,1,-0.3,0);
+	Press_The_Button_Lower(f,45);
+	//if(fly_enabled) Raise_My_Hand(flag,45);
 	gluCylinder(upperArm, 0.05, 0.05, 0.1, 30, 30);
-	Press_The_Button_Lower(f);
+	button_pressed=Press_The_Button_Lower(f,10);
+	//if(fly_enabled) Raise_My_Hand(flag,45);
 
 }
 void Panda_Lower_Hand()
@@ -307,7 +344,7 @@ void Render_Panda()
 	glPopMatrix();
 	//BUTTON
 	glPushMatrix();
-		glTranslatef(0,-0.05,0.13);
+		glTranslatef(0,-0.05,0.14);
 		//glRotatef(5,1,0,0);
 		Panda_Button();
 	glPopMatrix();
@@ -325,15 +362,12 @@ void Render_Panda()
 	glPopMatrix();
 	//RIGHT HAND
 	glPushMatrix();
-		//stop=0;
-
 		glTranslatef(0.22,0.085,0);
 		glRotatef(180,0,1,0);
 		Panda_Upper_Hand(right_hand_upper_ani);
-		//bool ff=Press_The_Button_Lower(0);
-		//if(ff) fly_animation=0;
 		glTranslatef(-0.0065,0,0.085);
 		Panda_Lower_Hand();
+		
 	glPopMatrix();
 	//LEFT LEG
 	glPushMatrix();
@@ -383,10 +417,22 @@ void My_Display()
 		glTranslatef(0,0,1);
 		glRotatef(left_right_rotate,0,1,0);
 		glRotatef(up_down_rotate,1,0,0);
-		//if(fly_enabled) glTranslatef(0,fly_cnt,0);
+		if(fly_enabled) glTranslatef(0,fly_cnt,0);
 		if(fly_animation){
 			left_hand_upper_ani=0;
 			right_hand_upper_ani=1;
+		}
+		if(fly_animation&&button_pressed&&!delay){		
+			timer_cnt=0;
+			fly_cnt=0;
+			delay=1;
+		}
+		else if(timer_cnt==30&&delay){
+			fly_animation=0;
+			timer_cnt=0;
+			fly_cnt=0;
+			fly_enabled=1;
+			delay=0;
 		}
 		Render_Panda();
 	glPopMatrix();
@@ -508,9 +554,9 @@ void My_Timer(int val)
 		timer_cnt++;
 	//timer_cnt%=360;
 	
-	if(timer_cnt<=45) fly_cnt+=0.002;
+	if(timer_cnt%60<30) fly_cnt+=0.002;
 	else fly_cnt-=0.002;
-	if(timer_cnt==90) timer_cnt=0;
+	//if(timer_cnt==62) timer_cnt=0;
 	glutPostRedisplay();
 	if(timer_enabled)
 	{
@@ -576,15 +622,13 @@ void My_Menu(int id)
 		}
 		break;
 	case MENU_TIMER_STOP:
-		fly_enabled=false;
-		timer_cnt=0;
+		Init_All();
 		break;
 	case MENU_EXIT:
 		exit(0);
 		break;
 	case MENU_ANIMATION_FLY:
-		fly_cnt=0;
-		timer_cnt=0;
+		Init_All();
 		fly_animation=true;
 		//fly_enabled=true;
 		if(!timer_enabled)

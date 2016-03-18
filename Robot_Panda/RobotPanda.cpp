@@ -377,7 +377,9 @@ void Render_Panda()
 		Panda_Upper_Hand(left_hand_upper_ani,-1);
 		glTranslatef(-0.0065,0,0.085);
 		if(dance_enabled) glRotatef(dance_cnt,1,0,0);
-		Panda_Lower_Hand();
+		glPushMatrix();
+			Panda_Lower_Hand();
+		glPopMatrix();
 	glPopMatrix();
 	//RIGHT HAND
 	glPushMatrix();
@@ -385,7 +387,9 @@ void Render_Panda()
 		glRotatef(180,0,1,0);
 		Panda_Upper_Hand(right_hand_upper_ani,1);
 		glTranslatef(-0.0065,0,0.085);
-		Panda_Lower_Hand();
+		glPushMatrix();
+			Panda_Lower_Hand();
+		glPopMatrix();
 		
 	glPopMatrix();
 	//LEFT LEG
@@ -394,9 +398,13 @@ void Render_Panda()
 		Panda_Upper_Leg();
 		glTranslatef(-0.007,0,0.15);
 		if(dance_enabled) glRotatef(dance_cnt,0,0,-1);
-		Panda_Lower_Leg();
-		glTranslatef(-0.02,-0.1,0.22);			
-		Panda_Left_Sole();
+		glPushMatrix();
+			Panda_Lower_Leg();
+			glPushMatrix();
+				glTranslatef(-0.02,-0.1,0.22);			
+				Panda_Left_Sole();
+			glPopMatrix();
+		glPopMatrix();
 	glPopMatrix();
 	//RIGHT LEG
 	glPushMatrix();
@@ -405,9 +413,13 @@ void Render_Panda()
 		Panda_Upper_Leg();
 		glTranslatef(-0.007,-0.01,0.15);
 		if(dance_enabled) glRotatef(dance_cnt,0,0,1);
-		Panda_Lower_Leg();
-		glTranslatef(-0.02,-0.09,0.22);
-		Panda_Right_Sole();
+		glPushMatrix();
+			Panda_Lower_Leg();
+			glPushMatrix();
+				glTranslatef(-0.02,-0.09,0.22);
+				Panda_Right_Sole();
+			glPopMatrix();
+		glPopMatrix();
 	glPopMatrix();
 	//LEFT WING
 	glPushMatrix();

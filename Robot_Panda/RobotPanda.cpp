@@ -496,6 +496,9 @@ void My_Reshape(int width, int height)
 
 	//Lighting and Matrials
 
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_RESCALE_NORMAL);
+
 	glEnable(GL_COLOR_MATERIAL);
 	glColorMaterial(GL_FRONT, GL_AMBIENT);
 
